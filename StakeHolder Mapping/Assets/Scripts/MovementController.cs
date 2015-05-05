@@ -4,6 +4,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 using Holoville.HOTween;
 
@@ -20,7 +21,7 @@ public class MovementController : MonoBehaviour
 
     public Transform stage_camera_pos;
 
-
+	public Button testButton;
 
     /*prefab that has all of the parts as its children*/
     public Transform part_list;
@@ -285,7 +286,7 @@ public class MovementController : MonoBehaviour
         if (curr_selected == null)
             return;
 
-        UILabel label = UIButton.current.transform.GetChild(0).GetComponent<UILabel>();
+		Text label = testButton.transform.GetChild(0).GetComponent<Text>();
         if ( curr_state == MoveState.POSING )
         {
             label.text = "Change Pose";

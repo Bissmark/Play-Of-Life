@@ -41,7 +41,7 @@ public class ScreenshotLoader : MonoBehaviour {
 			go.transform.localScale = Vector3.one;
 			//go.transform.localPosition = new Vector3(_screenshot_parent.GetComponent<UIWrapContent>().itemSize * i, 0, 0);
 
-			go.transform.GetChild(0).GetComponent<UITexture>().mainTexture = texture;
+			//go.transform.GetChild(0).GetComponent<UITexture>().mainTexture = texture;
 			fs.Close();
 			++i;
 		}

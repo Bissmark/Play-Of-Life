@@ -46,79 +46,28 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BackButtonAndroid.cs" />
-     <Compile Include="Assets\ClickEnableInputPanel.cs" />
-     <Compile Include="Assets\DoubleClickEnableOutputPanel.cs" />
-     <Compile Include="Assets\Outside Help\InputTouches\ExampleScripts\C#\DPad.cs" />
-     <Compile Include="Assets\Outside Help\InputTouches\ExampleScripts\C#\Demo\Back.cs" />
-     <Compile Include="Assets\Outside Help\InputTouches\ExampleScripts\C#\Demo\ChargeModeSwitcher.cs" />
-     <Compile Include="Assets\Outside Help\InputTouches\ExampleScripts\C#\Demo\DemoMenu.cs" />
-     <Compile Include="Assets\Outside Help\InputTouches\ExampleScripts\C#\DemoSceneTarget.cs" />
-     <Compile Include="Assets\Outside Help\InputTouches\ExampleScripts\C#\FlickDemo.cs" />
-     <Compile Include="Assets\Outside Help\InputTouches\ExampleScripts\C#\OrbitCam.cs" />
-     <Compile Include="Assets\Outside Help\InputTouches\ExampleScripts\C#\RTSCam.cs" />
-     <Compile Include="Assets\Outside Help\InputTouches\ExampleScripts\C#\SwipeDemo.cs" />
-     <Compile Include="Assets\Outside Help\InputTouches\ExampleScripts\C#\TapDemo.cs" />
-     <Compile Include="Assets\Outside Help\InputTouches\ExampleScripts\C#\Turret.cs" />
-     <Compile Include="Assets\Outside Help\InputTouches\FPSDisplay\FpsDisplay.cs" />
      <Compile Include="Assets\PositionOutput.cs" />
-     <Compile Include="Assets\RemoveOutput.cs" />
      <Compile Include="Assets\Scripts\ActivateOptions.cs" />
-     <Compile Include="Assets\Scripts\BringBackAdmin.cs" />
-     <Compile Include="Assets\Scripts\CreateNameBox.cs" />
-     <Compile Include="Assets\Scripts\CreatePerson.cs" />
      <Compile Include="Assets\Scripts\CustomiserController.cs" />
-     <Compile Include="Assets\Scripts\DeleteModel.cs" />
-     <Compile Include="Assets\Scripts\GetActionPlan.cs" />
-     <Compile Include="Assets\Scripts\GetKnowledge.cs" />
-     <Compile Include="Assets\Scripts\GetName.cs" />
-     <Compile Include="Assets\Scripts\GetOther.cs" />
-     <Compile Include="Assets\Scripts\GetPosition.cs" />
-     <Compile Include="Assets\Scripts\GetReportName.cs" />
-     <Compile Include="Assets\Scripts\GetReportPosition.cs" />
-     <Compile Include="Assets\Scripts\GoalsInAligningWithInput.cs" />
-     <Compile Include="Assets\Scripts\KnowledgeInput.cs" />
      <Compile Include="Assets\Scripts\MagnifyingCamera.cs" />
-     <Compile Include="Assets\Scripts\MenuLogicStakeHolder.cs" />
      <Compile Include="Assets\Scripts\MovementController.cs" />
      <Compile Include="Assets\Scripts\MovingPersonOutput.cs" />
-     <Compile Include="Assets\Scripts\NameInput.cs" />
-     <Compile Include="Assets\Scripts\OtherInput.cs" />
      <Compile Include="Assets\Scripts\PartButton.cs" />
      <Compile Include="Assets\Scripts\PartComponent.cs" />
-     <Compile Include="Assets\Scripts\PlayerPrefsSaving.cs" />
-     <Compile Include="Assets\Scripts\PositionInput.cs" />
-     <Compile Include="Assets\Scripts\PositionInput2.cs" />
-     <Compile Include="Assets\Scripts\PreviewPanel.cs" />
-     <Compile Include="Assets\Scripts\ReportToInput.cs" />
-     <Compile Include="Assets\Scripts\ResetPlayerprefs.cs" />
      <Compile Include="Assets\Scripts\SandboxSpinner.cs" />
      <Compile Include="Assets\Scripts\Screenshot.cs" />
      <Compile Include="Assets\Scripts\ScreenshotLoader.cs" />
-     <Compile Include="Assets\Scripts\SetName.cs" />
-     <Compile Include="Assets\Scripts\Tom&apos;s Scripts\GetGoals.cs" />
-     <Compile Include="Assets\Scripts\Tom&apos;s Scripts\GetReportAlign.cs" />
-     <Compile Include="Assets\Scripts\Tom&apos;s Scripts\PasswordInput.cs" />
-     <Compile Include="Assets\Scripts\Tom&apos;s Scripts\ReportAlignInput.cs" />
-     <Compile Include="Assets\Scripts\Tom&apos;s Scripts\SillhouetteName.cs" />
-     <Compile Include="Assets\Scripts\Tom&apos;s Scripts\StakeholderManager.cs" />
-     <Compile Include="Assets\Scripts\Tom&apos;s Scripts\UserStorage.cs" />
-     <Compile Include="Assets\Scripts\Tom&apos;s Scripts\UsernameInput.cs" />
      <Compile Include="Assets\Scripts\TouchHandler.cs" />
      <Compile Include="Assets\Scripts\TouchHandlerGameObject.cs" />
-     <Compile Include="Assets\Scripts\UIButtonMessage1.cs" />
-     <Compile Include="Assets\Scripts\UIButtonTest.cs" />
-     <Compile Include="Assets\Scripts\UILabelScript.cs" />
-     <Compile Include="Assets\Scripts\clicking.cs" />
      <Compile Include="Assets\Scripts\readScreenshot.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="HOTween">
- <HintPath>C:/Program Files (x86)/Work/StakeHolder Mapping/Assets/HOTween/HOTween.dll</HintPath>
+ <HintPath>C:/Users/CJ/Documents/GitHub/Play-Of-Life/StakeHolder Mapping/Assets/HOTween/HOTween.dll</HintPath>
  </Reference>
  <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>C:/Program Files (x86)/Work/StakeHolder Mapping/Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
+ <HintPath>C:/Users/CJ/Documents/GitHub/Play-Of-Life/StakeHolder Mapping/Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

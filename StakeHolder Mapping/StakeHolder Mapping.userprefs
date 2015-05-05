@@ -1,8 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\SandplayTimaGit\Sandplay5.0\Prototype\Assets\Scripts\LoadScene.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CustomiserController.cs">
     <Files>
-      <File FileName="..\SandplayTimaGit\Sandplay5.0\Prototype\Assets\Scripts\LoadScene.cs" Line="15" Column="2" />
+      <File FileName="Assets\Scripts\CustomiserController.cs" Line="36" Column="33" />
+      <File FileName="Assets\Scripts\MovementController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ActivateOptions.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PartComponent.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PartButton.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MovingPersonOutput.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

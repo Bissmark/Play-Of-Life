@@ -60,10 +60,10 @@
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="HOTween">
- <HintPath>C:/Program Files (x86)/Work/StakeHolder Mapping/Assets/HOTween/HOTween.dll</HintPath>
+ <HintPath>C:/Users/CJ/Documents/GitHub/Play-Of-Life/StakeHolder Mapping/Assets/HOTween/HOTween.dll</HintPath>
  </Reference>
  <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>C:/Program Files (x86)/Work/StakeHolder Mapping/Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
+ <HintPath>C:/Users/CJ/Documents/GitHub/Play-Of-Life/StakeHolder Mapping/Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
