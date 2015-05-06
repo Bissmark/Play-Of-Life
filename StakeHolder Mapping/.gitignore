@@ -27,3 +27,7 @@ UnityVS*
 
 #Screenshots
 Assets/Screenshots/
+
+#DllTest
+!/*.dll
+
