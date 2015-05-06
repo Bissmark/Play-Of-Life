@@ -98,12 +98,12 @@ public class CustomiserController : MonoBehaviour
         buttons = new List<PartButton>(GameObject.FindObjectsOfType<PartButton>());
         buttons.Sort((a, b) => a.name.CompareTo(b.name));
 
-        GameObject[] scrollings = GameObject.FindGameObjectsWithTag("Scrolling");
+        //GameObject[] scrollings = GameObject.FindGameObjectsWithTag("Scrolling");
 
-        foreach (var g in scrollings)
-        {
-            g.SetActive(false);
-        }
+        //foreach (var g in scrollings)
+        //{
+            //g.SetActive(false);
+        //}
 
         ResetGUIObjects();
 
