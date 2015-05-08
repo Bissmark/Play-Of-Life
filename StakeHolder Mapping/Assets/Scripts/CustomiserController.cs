@@ -27,11 +27,13 @@ public class PartData
 public class CustomiserController : MonoBehaviour 
 {
     public MovementController movement_controller;
-    public Transform customiser_camera;
-    public Transform customiser_ui;
-    public Transform placement_camera;
-    public Transform placement_ui;
+    public Camera customiser_camera;
+    public GameObject customiser_ui;
+    public Camera placement_camera;
+    public GameObject placement_ui;
 	public Transform stage;
+
+	public GameObject CharacterCustomzation;
     
     public Transform part_parent; /*parenet transform that the different parts of the currently edited character are parented under*/
     public Transform part_list; /*prefab that has all of the parts as its children*/
@@ -197,19 +199,21 @@ public class CustomiserController : MonoBehaviour
     public void GoToStage()
     {
         customiser_camera.gameObject.SetActive(false);
-        customiser_ui.gameObject.SetActive(false);
+        customiser_ui.SetActive(false);
 
         placement_camera.gameObject.SetActive(true);
-        placement_ui.gameObject.SetActive(true);
+        placement_ui.SetActive(true);
     }
 
     public void NewCharacter()
     {
-        customiser_camera.gameObject.SetActive(true);
-        customiser_ui.gameObject.SetActive(true);
-
-        placement_camera.gameObject.SetActive(false);
-        placement_ui.gameObject.SetActive(false);
+		if(placement_ui.activeSelf == true)
+		{
+			placement_camera.gameObject.SetActive(false);
+			placement_ui.SetActive(false);
+			customiser_camera.gameObject.SetActive(true);
+			customiser_ui.SetActive(true);
+		}
     }
 
     public void HandleSlider()

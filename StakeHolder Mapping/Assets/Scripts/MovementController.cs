@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-using Holoville.HOTween;
+//using Holoville.HOTween;
 
 public class MovementController : MonoBehaviour 
 {
@@ -291,8 +291,8 @@ public class MovementController : MonoBehaviour
         {
             label.text = "Change Pose";
 
-            HOTween.To(Camera.main.transform, 0.5f, new TweenParms().Prop("position", stage_camera_pos.position).Ease(EaseType.EaseOutQuad));
-            HOTween.To(Camera.main.transform, 0.5f, new TweenParms().Prop("rotation", stage_camera_pos.rotation).Ease(EaseType.EaseOutQuad));
+            //HOTween.To(Camera.main.transform, 0.5f, new TweenParms().Prop("position", stage_camera_pos.position).Ease(EaseType.EaseOutQuad));
+            //HOTween.To(Camera.main.transform, 0.5f, new TweenParms().Prop("rotation", stage_camera_pos.rotation).Ease(EaseType.EaseOutQuad));
 
             foreach (var d in part_parents)
             {
@@ -314,8 +314,8 @@ public class MovementController : MonoBehaviour
                 d.character_parent.gameObject.SetActive(false);
             }
 
-            HOTween.To(Camera.main.transform, 0.5f, new TweenParms().Prop("position", cam_child.position).Ease(EaseType.EaseOutQuad).OnComplete(()=>curr_state = MoveState.POSING));
-            HOTween.To(Camera.main.transform, 0.5f, new TweenParms().Prop("rotation", cam_child.rotation).Ease(EaseType.EaseOutQuad).OnComplete(()=>curr_state = MoveState.POSING));
+            //HOTween.To(Camera.main.transform, 0.5f, new TweenParms().Prop("position", cam_child.position).Ease(EaseType.EaseOutQuad).OnComplete(()=>curr_state = MoveState.POSING));
+           // HOTween.To(Camera.main.transform, 0.5f, new TweenParms().Prop("rotation", cam_child.rotation).Ease(EaseType.EaseOutQuad).OnComplete(()=>curr_state = MoveState.POSING));
 
         }
     }
