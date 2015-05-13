@@ -61,7 +61,6 @@ public class CustomiserController : MonoBehaviour
     PartUseage skin = PartUseage.MEDIUM_SKIN;
     PartUseage happiness = PartUseage.HAPPY;
 
-	public Slider testSlider;
 	public Button testButton;
     List<PartButton> buttons;
 	// Use this for initialization
@@ -149,8 +148,9 @@ public class CustomiserController : MonoBehaviour
 		if (testButton.name == null)
             throw new InvalidOperationException("Set part called by function other than UIButton");
 
+		//testButton;
 		PartButton button = testButton.GetComponent<PartButton>();
-        
+
         switch (button.type)
         {
             case PartType.NONE:
@@ -218,22 +218,22 @@ public class CustomiserController : MonoBehaviour
 
     public void HandleSlider()
     {
-		string slider_name = testSlider.name;
-
-        if (slider_name == "happiness_slider")
-        {
-			happiness = testSlider.value > 0.5 ? PartUseage.HAPPY : PartUseage.SAD;
-            SetPartsThatFitConstrait(ref current_head, head_parent, (int)gender | (int)skin | (int)happiness, 0, heads);
-
-        }
-        else if (slider_name == "height_slider")
-        {
-
-        }
-        else if (slider_name == "size_slider")
-        {
-
-        }
+//		string slider_name = testSlider.name;
+//
+//        if (slider_name == "happiness_slider")
+//        {
+//			happiness = testSlider.value > 0.5 ? PartUseage.HAPPY : PartUseage.SAD;
+//            SetPartsThatFitConstrait(ref current_head, head_parent, (int)gender | (int)skin | (int)happiness, 0, heads);
+//
+//        }
+//        else if (slider_name == "height_slider")
+//        {
+//
+//        }
+//        else if (slider_name == "size_slider")
+//        {
+//
+//        }
 
     }
 
