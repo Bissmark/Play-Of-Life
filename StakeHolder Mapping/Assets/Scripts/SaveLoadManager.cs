@@ -18,6 +18,9 @@ public class SaveLoadManager : Manager<SaveLoadManager>
     [SerializeField]
     private string _screenShotFileName = string.Empty;
 
+    [SerializeField]
+    private bool _saveGUI = false;
+
     //  hidden varibales
     private string folder;
 
@@ -68,12 +71,40 @@ public class SaveLoadManager : Manager<SaveLoadManager>
         string currentDT = DateTime.Now.ToString( "yyyy-MM-dd HH.mm.ss" );
         string filePath = folder + fileName + currentDT + ".png";
 
-        Application.CaptureScreenshot( filePath );
-        // TODO: this method is not going to work for the web.
-        // Task 1: Capture screenshot using RenderTexture(web only)
-        // Task 2: Upload it to the server(web only)
+        CaptureScreenshot(filePath, _saveGUI);
 
         return filePath;
+    }
+
+    private void CaptureScreenshot(string filePath, bool saveGUI)
+    {
+        if ( saveGUI )
+        {
+            Application.CaptureScreenshot( filePath );
+        }
+        else
+        {
+            // this was copied from http://answers.unity3d.com/questions/22954/how-to-save-a-picture-take-screenshot-from-a-camer.html
+            // in order to save image without UI
+            {
+                int resWidth = Screen.width;
+                int resHeight = Screen.height;
+
+                RenderTexture rt = new RenderTexture( resWidth, resHeight, 24 );
+                Camera.main.targetTexture = rt;
+                Texture2D screenShot = new Texture2D( resWidth, resHeight, TextureFormat.RGB24, false );
+                Camera.main.Render();
+                RenderTexture.active = rt;
+                screenShot.ReadPixels( new Rect( 0, 0, resWidth, resHeight ), 0, 0 );
+                Camera.main.targetTexture = null;
+                RenderTexture.active = null; // JC: added to avoid errors
+                Destroy( rt );
+                byte[] bytes = screenShot.EncodeToPNG();
+                System.IO.File.WriteAllBytes( filePath, bytes );
+            }
+
+
+        }
     }
 
     public string[] GetScreenShotNames()

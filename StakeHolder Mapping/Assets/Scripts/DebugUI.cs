@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 public class DebugUI : Manager<DebugUI>
 {
+    // exposed variables
     [SerializeField]
     private GameObject _uIContainer = null;
 
