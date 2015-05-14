@@ -7,6 +7,8 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 
 
 public class SaveLoadManager : Manager<SaveLoadManager>
@@ -14,14 +16,24 @@ public class SaveLoadManager : Manager<SaveLoadManager>
 
     // exposed variables
     [SerializeField]
-    private string fileName;
+    private string _screenShotFileName = string.Empty;
 
-    // varibales
+    //  hidden varibales
     private string folder;
+
+    // the extensions we only want to load
+    private List<string> _imageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
+
+
+    // Must call as per manager class
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     void Start()
     {
-        // Create Save directory for the screenshot
+        // Create path for the screenshot
         {
             if ( Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.OSXWebPlayer )
             {
@@ -43,7 +55,7 @@ public class SaveLoadManager : Manager<SaveLoadManager>
 
     public void TakeScreenShot()
     {
-        TakeScreenShot( this.folder, this.fileName );
+        TakeScreenShot( this.folder, this._screenShotFileName );
     }
 
     public string TakeScreenShot( string folder, string fileName )
@@ -62,5 +74,68 @@ public class SaveLoadManager : Manager<SaveLoadManager>
         // Task 2: Upload it to the server(web only)
 
         return filePath;
+    }
+
+    public string[] GetScreenShotNames()
+	{
+		if (Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.OSXWebPlayer) 
+		{
+			return Directory.GetFiles (Application.dataPath + "/StreamingAssets/"); // this never is going to happen
+		}
+        else if ( Application.platform == RuntimePlatform.WindowsPlayer )
+        {
+            return Directory.GetFiles( Application.persistentDataPath + "/Screenshots" );
+        }
+		else 
+		{
+			return Directory.GetFiles (Application.dataPath + "/Screenshots");
+		}
+	}
+
+    public List<Texture2D> GetSavedImages()
+	{
+		string[] filenames = GetScreenShotNames();
+
+		if (filenames.Length == 0)
+			return null;
+
+        List<Texture2D> savedImages = new List<Texture2D>();
+
+		foreach (string s in filenames)
+		{
+            Texture2D texture = GetSavedImage( s );
+            if ( texture != null )
+            {
+                savedImages.Add( texture );
+            }
+		}
+
+        return savedImages;
+	}
+    
+    public Texture2D GetSavedImage(string fileName)
+    {
+        // skipping on non image files
+        if ( !_imageExtensions.Contains( Path.GetExtension( fileName ).ToUpperInvariant() ) )
+        {
+            return null;
+        }
+
+        FileStream fs = new FileStream( fileName, FileMode.Open, FileAccess.Read );
+        byte[] imageData = new byte[ fs.Length ];
+        fs.Read( imageData, 0, ( int )fs.Length );
+
+        Texture2D texture = new Texture2D( 4, 4 );
+        texture.LoadImage( imageData );
+        fs.Close();
+        return texture;
+    }
+
+
+
+    // Must call as per manager class
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
     }
 }
