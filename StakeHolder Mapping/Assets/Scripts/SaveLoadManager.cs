@@ -41,9 +41,9 @@ public class SaveLoadManager : Manager<SaveLoadManager>
        
     }
 
-    public void OnClickScreenshotButton()
+    public void TakeScreenShot()
     {
-        SaveScreenshot( this.folder, this.fileName );
+        TakeScreenShot( this.folder, this.fileName );
     }
 
     public string TakeScreenShot( string folder, string fileName )

@@ -36,4 +36,15 @@ public class DebugUI : Manager<DebugUI>
             }
         }
     }
+
+    // Button Clicks
+    public void OnSaveScreenshotButtonClick()
+    {
+        SaveLoadManager.Instance.TakeScreenShot();
+    }
+
+    public void OnLoadScreenshotButton()
+    {
+
+    }
 }
