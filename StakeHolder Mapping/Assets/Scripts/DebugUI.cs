@@ -51,6 +51,8 @@ public class DebugUI : Manager<DebugUI>
                  _uIContainer.activeSelf == true )
             {
                 _uIContainer.SetActive( false );
+                DestroyImageEntries();
+                _imagePreview.gameObject.SetActive(false);
             }
         }
     }
@@ -77,14 +79,7 @@ public class DebugUI : Manager<DebugUI>
 
     private void GenerateSaveImageEntries( string[] imageEntries )
     {
-        // destroy already instantiated prefabs
-        foreach ( Transform child in _imageEntriesContainer.transform )
-        {
-            if ( child != _imageEntriesContainer.transform )
-            {
-                Destroy( child.gameObject );
-            }
-        }
+        DestroyImageEntries();
 
         // instantiate prefabs
         for ( int i = 0; i < imageEntries.Length; i++ )
@@ -103,6 +98,21 @@ public class DebugUI : Manager<DebugUI>
         _imagePreview.gameObject.SetActive( true );
         _imagePreview.rectTransform.sizeDelta = new Vector2( texture.width , texture.height );
     }
+
+    // Clean up functions
+    
+    //Destroy already instantiated prefabs inside image container
+    private void DestroyImageEntries()
+    {
+        foreach ( Transform child in _imageEntriesContainer.transform )
+        {
+            if ( child != _imageEntriesContainer.transform )
+            {
+                Destroy( child.gameObject );
+            }
+        }
+    }
+
 
     protected override void OnDestroy()
     {

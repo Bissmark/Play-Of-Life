@@ -78,18 +78,33 @@ public class SaveLoadManager : Manager<SaveLoadManager>
 
     public string[] GetScreenShotNames()
 	{
+        // checking environment
+        string[] files;
 		if (Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.OSXWebPlayer) 
 		{
-			return Directory.GetFiles (Application.dataPath + "/StreamingAssets/"); // this never is going to happen
+			files =  Directory.GetFiles (Application.dataPath + "/StreamingAssets/"); // this never is going to happen
 		}
         else if ( Application.platform == RuntimePlatform.WindowsPlayer )
         {
-            return Directory.GetFiles( Application.persistentDataPath + "/Screenshots" );
+            files =  Directory.GetFiles( Application.persistentDataPath + "/Screenshots" );
         }
 		else 
 		{
-			return Directory.GetFiles (Application.dataPath + "/Screenshots");
+			files = Directory.GetFiles (Application.dataPath + "/Screenshots");
 		}
+
+
+        // filtering out non image files
+        List<string> filteredFiles = new List<string>();
+        for ( int i = 0; i < files.Length; i++ )
+        {
+            if ( _imageExtensions.Contains( Path.GetExtension( files[i] ).ToUpperInvariant() ) )
+            {
+                filteredFiles.Add( files[ i ] );
+            }
+        }
+
+        return filteredFiles.ToArray();
 	}
 
     public List<Texture2D> GetSavedImages()
