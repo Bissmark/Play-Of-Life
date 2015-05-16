@@ -9,6 +9,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 
 public class SaveLoadManager : Manager<SaveLoadManager>
@@ -177,7 +179,38 @@ public class SaveLoadManager : Manager<SaveLoadManager>
         return texture;
     }
 
+    private void SaveScene( string saveName )
+    {
+        SaveEntry save_game = new SaveEntry();
 
+        // save the filepath of the screenshot
+        string partial_filepath = "/Sandplay_Screenshot_Save";
+        save_game._screenshot_filename = TakeScreenShot( Application.persistentDataPath + partial_filepath, "Screenshot" ); ;
+
+        // saving objects in the scene
+        GameObject[] objects = GameObject.FindGameObjectsWithTag( "Object" );
+        foreach ( GameObject go in objects )
+        {
+            ObjectSaveEntry entry = new ObjectSaveEntry();
+
+            entry._name = go.name;
+            entry._position = go.transform.position;
+            entry._scale = go.transform.localScale;
+            entry._rotation = go.transform.rotation;
+            save_game._objects.Add( entry );
+        }
+
+        // save time
+        save_game._saveTime = System.DateTime.Now;
+
+        // save name
+        save_game._saveName = saveName;
+
+        // serializing into xml
+        var serializer = new XmlSerializer( typeof( SaveEntry ) );
+        TextWriter WriteFileStream = new StreamWriter( Application.persistentDataPath + "/" + "Sandplay_Save" + System.DateTime.Now.ToFileTime() );
+        serializer.Serialize( WriteFileStream, save_game );
+    }
 
     // Must call as per manager class
     protected override void OnDestroy()
@@ -185,3 +218,27 @@ public class SaveLoadManager : Manager<SaveLoadManager>
         base.OnDestroy();
     }
 }
+
+//class for each object stored in the sandbox
+public struct ObjectSaveEntry
+{
+    public string _name; /* name of the prefab type */
+
+    /* transform data */
+    public Vector3 _position;
+    public Vector3 _scale;
+    public Quaternion _rotation;
+};
+
+
+public class SaveEntry
+{
+    //the objects along with the sandbox
+    public List<ObjectSaveEntry> _objects = new List<ObjectSaveEntry>();
+    public int _sandbox;
+    public Quaternion _sandbox_rotation;
+    //take a screenshot for the load screen
+    public string _screenshot_filename;
+    public string _saveName;
+    public System.DateTime _saveTime;
+};
