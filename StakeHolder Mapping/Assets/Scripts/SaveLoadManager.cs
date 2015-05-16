@@ -23,11 +23,12 @@ public class SaveLoadManager : Manager<SaveLoadManager>
     [SerializeField]
     private bool _saveGUI = false;
 
-    //  hidden varibales
-    private string folder;
-
     // the extensions we only want to load
     private List<string> _imageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
+
+    // hidden variables
+    private string _screenshotFolder;
+    private string _screenshotSaveSceneFolder;
 
 
     // Must call as per manager class
@@ -42,25 +43,34 @@ public class SaveLoadManager : Manager<SaveLoadManager>
         {
             if ( Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.OSXWebPlayer )
             {
-                folder = Application.dataPath + "/StreamingAssets/";//"/../Screenshots"; // this will do nothing StreamingAssets don't work on the web
-            }
-            else if ( Application.platform == RuntimePlatform.WindowsPlayer )
-            {
-                folder = Application.persistentDataPath + "/Screenshots/";
+                // need to do server base solution
             }
             else
             {
-                folder = Application.dataPath + "/Screenshots/";
+                _screenshotFolder = Application.persistentDataPath + "/Screenshots/";
             }
 
-            System.IO.Directory.CreateDirectory( folder );
+            System.IO.Directory.CreateDirectory( _screenshotFolder );
         }
-       
+
+        // Create path for the save scene screenshot
+        {
+            if ( Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.OSXWebPlayer )
+            {
+                // need to do server base solution
+            }
+            else
+            {
+                _screenshotSaveSceneFolder = Application.persistentDataPath + "/POL_Screenshot_Save/";
+            }
+
+            System.IO.Directory.CreateDirectory( _screenshotSaveSceneFolder );
+        }
     }
 
-    public void TakeScreenShot()
+    public string TakeScreenShot()
     {
-        TakeScreenShot( this.folder, this._screenShotFileName );
+        return TakeScreenShot( this._screenshotFolder, this._screenShotFileName );
     }
 
     public string TakeScreenShot( string folder, string fileName )
@@ -179,13 +189,18 @@ public class SaveLoadManager : Manager<SaveLoadManager>
         return texture;
     }
 
-    private void SaveScene( string saveName )
+    private void DoSaveScene()
+    {
+        DoSaveScene( string.Empty );
+    }
+
+    private void DoSaveScene( string saveName )
     {
         SaveEntry save_game = new SaveEntry();
 
         // save the filepath of the screenshot
-        string partial_filepath = "/Sandplay_Screenshot_Save";
-        save_game._screenshot_filename = TakeScreenShot( Application.persistentDataPath + partial_filepath, "Screenshot" ); ;
+        save_game._screenshot_filename = TakeScreenShot( _screenshotSaveSceneFolder, "screenshot" );
+        Debug.Log( save_game._screenshot_filename );
 
         // saving objects in the scene
         GameObject[] objects = GameObject.FindGameObjectsWithTag( "Object" );
@@ -212,6 +227,12 @@ public class SaveLoadManager : Manager<SaveLoadManager>
         serializer.Serialize( WriteFileStream, save_game );
     }
 
+    public void SaveScene()
+    {
+        DoSaveScene();      
+    }
+
+
     // Must call as per manager class
     protected override void OnDestroy()
     {
@@ -235,8 +256,6 @@ public class SaveEntry
 {
     //the objects along with the sandbox
     public List<ObjectSaveEntry> _objects = new List<ObjectSaveEntry>();
-    public int _sandbox;
-    public Quaternion _sandbox_rotation;
     //take a screenshot for the load screen
     public string _screenshot_filename;
     public string _saveName;

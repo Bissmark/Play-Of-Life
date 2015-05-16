@@ -74,6 +74,11 @@ public class DebugUI : Manager<DebugUI>
     {
         LoadImage( imagePath );
     }
+
+    public void OnSaveSceneButtonClick()
+    {
+        SaveLoadManager.Instance.SaveScene();
+    }
     #endregion
 
 
