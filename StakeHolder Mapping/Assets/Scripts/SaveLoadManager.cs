@@ -212,7 +212,7 @@ public class SaveLoadManager : Manager<SaveLoadManager>
     }
 
     // Returns all the save name files
-    public string[] GetSaveGameNames()
+    private string[] GetSaveGameNames()
     {
         return Directory.GetFiles( Application.persistentDataPath, "Sandplay_Save*" );
     }
@@ -228,6 +228,23 @@ public class SaveLoadManager : Manager<SaveLoadManager>
         }
     }
 
+    // returns save entry specified by file path
+    public SaveEntry GetSaveEntry(string filePath)
+    {
+        return DeserializeSaveEntry( filePath );
+    }
+
+    // returns all save entries
+    public List<SaveEntry> GetSaveEntries()
+    {
+        string[] savedFilePaths = GetSaveGameNames();
+        List<SaveEntry> saveEntries = new List<SaveEntry>();
+        for ( int i = 0; i < savedFilePaths.Length; i++ )
+        {
+            saveEntries.Add( GetSaveEntry( savedFilePaths[ i ] ) );
+        }
+        return saveEntries;
+    }
 
     void LoadScene()
     {

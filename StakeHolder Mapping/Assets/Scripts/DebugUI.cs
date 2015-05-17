@@ -19,7 +19,7 @@ public class DebugUI : Manager<DebugUI>
     private GameObject _imageEntriesContainer = null;
 
     [SerializeField]
-    private GameObject _saveScreenEntriesContainer = null;
+    private GameObject _saveSceneEntriesContainer = null;
 
     [SerializeField]
     private GameObject _saveEntryTextUIEntryPrefab = null;
@@ -34,7 +34,7 @@ public class DebugUI : Manager<DebugUI>
         // Error checking
         DebugUtils.Assert( _uIContainer != null, "Check that UIElementsContainer is hooked up" );
         DebugUtils.Assert( _imageEntriesContainer != null, "Check that ImageEntriesContainer is hooked up" );
-        DebugUtils.Assert( _saveScreenEntriesContainer != null, "Check that SaveScreenEntriesContainer is hooked up" );
+        DebugUtils.Assert( _saveSceneEntriesContainer != null, "Check that SaveScreenEntriesContainer is hooked up" );
         DebugUtils.Assert( _saveEntryTextUIEntryPrefab != null, "Check that SaveImageEntry is hooked up" );
         DebugUtils.Assert( _imagePreview != null, "Check that ImagePreview is hooked up" );
 
@@ -57,7 +57,7 @@ public class DebugUI : Manager<DebugUI>
             {
                 _uIContainer.SetActive( false );
                 DestroyEntries();
-                _imagePreview.gameObject.SetActive(false);
+                _imagePreview.gameObject.SetActive( false );
             }
         }
     }
@@ -77,11 +77,18 @@ public class DebugUI : Manager<DebugUI>
     }
     public void OnSaveSceneButtonClick()
     {
-        SaveLoadManager.Instance.SaveScene(string.Empty);
+        SaveLoadManager.Instance.SaveScene( string.Empty );
     }
     public void OnLoadSceneButtonClick()
     {
-        GenerateEntries( SaveLoadManager.Instance.GetSaveGameNames(), _saveScreenEntriesContainer );
+        List<SaveEntry> saveEntries = SaveLoadManager.Instance.GetSaveEntries();
+        List<string> saveSceneImagePaths = new List<string>();
+        foreach ( SaveEntry se in saveEntries )
+        {
+            saveSceneImagePaths.Add( se._screenshot_filename );
+        }
+
+        GenerateEntries( saveSceneImagePaths.ToArray(), _saveSceneEntriesContainer );
     }
 
     private void GenerateEntries( string[] entries, GameObject parent )
@@ -103,11 +110,11 @@ public class DebugUI : Manager<DebugUI>
         Texture2D texture = SaveLoadManager.Instance.GetSavedImage( imagePath );
         _imagePreview.texture = texture;
         _imagePreview.gameObject.SetActive( true );
-        _imagePreview.rectTransform.sizeDelta = new Vector2( texture.width , texture.height );
+        _imagePreview.rectTransform.sizeDelta = new Vector2( texture.width, texture.height );
     }
 
     // Clean up functions
-    
+
     //Destroy already instantiated prefabs inside image container
     private void DestroyEntries()
     {
@@ -121,9 +128,9 @@ public class DebugUI : Manager<DebugUI>
         }
 
         // destroy saveGame entries
-        foreach ( Transform child in _saveScreenEntriesContainer.transform )
+        foreach ( Transform child in _saveSceneEntriesContainer.transform )
         {
-            if ( child != _saveScreenEntriesContainer.transform )
+            if ( child != _saveSceneEntriesContainer.transform )
             {
                 Destroy( child.gameObject );
             }
