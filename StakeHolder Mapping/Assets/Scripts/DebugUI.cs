@@ -19,7 +19,10 @@ public class DebugUI : Manager<DebugUI>
     private GameObject _imageEntriesContainer = null;
 
     [SerializeField]
-    private GameObject _saveImageEntryPrefab = null;
+    private GameObject _saveScreenEntriesContainer = null;
+
+    [SerializeField]
+    private GameObject _saveEntryTextUIEntryPrefab = null;
 
     [SerializeField]
     private RawImage _imagePreview = null;
@@ -31,7 +34,8 @@ public class DebugUI : Manager<DebugUI>
         // Error checking
         DebugUtils.Assert( _uIContainer != null, "Check that UIElementsContainer is hooked up" );
         DebugUtils.Assert( _imageEntriesContainer != null, "Check that ImageEntriesContainer is hooked up" );
-        DebugUtils.Assert( _saveImageEntryPrefab != null, "Check that SaveImageEntry is hooked up" );
+        DebugUtils.Assert( _saveScreenEntriesContainer != null, "Check that SaveScreenEntriesContainer is hooked up" );
+        DebugUtils.Assert( _saveEntryTextUIEntryPrefab != null, "Check that SaveImageEntry is hooked up" );
         DebugUtils.Assert( _imagePreview != null, "Check that ImagePreview is hooked up" );
 
         // Disable UIContainer on awake
@@ -52,48 +56,45 @@ public class DebugUI : Manager<DebugUI>
                  _uIContainer.activeSelf == true )
             {
                 _uIContainer.SetActive( false );
-                DestroyImageEntries();
+                DestroyEntries();
                 _imagePreview.gameObject.SetActive(false);
             }
         }
     }
 
     // Button click functions
-    #region ButtonClicks
     public void OnSaveScreenshotButtonClick()
     {
         SaveLoadManager.Instance.TakeScreenShot();
     }
-
     public void OnLoadScreenshotButton()
     {
-        GenerateSaveImageEntries( SaveLoadManager.Instance.GetScreenShotNames() );
+        GenerateEntries( SaveLoadManager.Instance.GetScreenshotNames(), _imageEntriesContainer );
     }
-
-    public void OnSaveImageEntryClick( string imagePath )
+    public void OnSaveTextEntryClick( string imagePath )
     {
         LoadImage( imagePath );
     }
-
     public void OnSaveSceneButtonClick()
     {
-        SaveLoadManager.Instance.SaveScene();
+        SaveLoadManager.Instance.SaveScene(string.Empty);
     }
-    #endregion
-
-
-
-    private void GenerateSaveImageEntries( string[] imageEntries )
+    public void OnLoadSceneButtonClick()
     {
-        DestroyImageEntries();
+        GenerateEntries( SaveLoadManager.Instance.GetSaveGameNames(), _saveScreenEntriesContainer );
+    }
+
+    private void GenerateEntries( string[] entries, GameObject parent )
+    {
+        DestroyEntries();
 
         // instantiate prefabs
-        for ( int i = 0; i < imageEntries.Length; i++ )
+        for ( int i = 0; i < entries.Length; i++ )
         {
-            GameObject go = Instantiate( _saveImageEntryPrefab ) as GameObject;
-            go.transform.SetParent( _imageEntriesContainer.transform );
-            go.GetComponentInChildren<Text>().text = imageEntries[ i ];
-            go.transform.position = go.transform.position + new Vector3( 0, ( -20 * ( i + 1 ) ) );
+            GameObject go = Instantiate( _saveEntryTextUIEntryPrefab ) as GameObject;
+            go.transform.SetParent( parent.transform );
+            go.GetComponentInChildren<Text>().text = entries[ i ];
+            go.transform.localPosition = new Vector3( 0f, ( -30 * ( i + 1 ) ), 0f );
         }
     }
 
@@ -108,11 +109,21 @@ public class DebugUI : Manager<DebugUI>
     // Clean up functions
     
     //Destroy already instantiated prefabs inside image container
-    private void DestroyImageEntries()
+    private void DestroyEntries()
     {
+        // destroy image entries
         foreach ( Transform child in _imageEntriesContainer.transform )
         {
             if ( child != _imageEntriesContainer.transform )
+            {
+                Destroy( child.gameObject );
+            }
+        }
+
+        // destroy saveGame entries
+        foreach ( Transform child in _saveScreenEntriesContainer.transform )
+        {
+            if ( child != _saveScreenEntriesContainer.transform )
             {
                 Destroy( child.gameObject );
             }

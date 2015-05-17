@@ -35,10 +35,7 @@ public class SaveLoadManager : Manager<SaveLoadManager>
     protected override void Awake()
     {
         base.Awake();
-    }
 
-    void Start()
-    {
         // Create path for the screenshot
         {
             if ( Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.OSXWebPlayer )
@@ -66,8 +63,10 @@ public class SaveLoadManager : Manager<SaveLoadManager>
 
             System.IO.Directory.CreateDirectory( _screenshotSaveSceneFolder );
         }
+
     }
 
+    // Save/Load screenshot functions
     public string TakeScreenShot()
     {
         return TakeScreenShot( this._screenshotFolder, this._screenShotFileName );
@@ -114,28 +113,12 @@ public class SaveLoadManager : Manager<SaveLoadManager>
                 byte[] bytes = screenShot.EncodeToPNG();
                 System.IO.File.WriteAllBytes( filePath, bytes );
             }
-
-
         }
     }
 
-    public string[] GetScreenShotNames()
+    public string[] GetScreenshotNames()
 	{
-        // checking environment
-        string[] files;
-		if (Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.OSXWebPlayer) 
-		{
-			files =  Directory.GetFiles (Application.dataPath + "/StreamingAssets/"); // this never is going to happen
-		}
-        else if ( Application.platform == RuntimePlatform.WindowsPlayer )
-        {
-            files =  Directory.GetFiles( Application.persistentDataPath + "/Screenshots" );
-        }
-		else 
-		{
-			files = Directory.GetFiles (Application.dataPath + "/Screenshots");
-		}
-
+        string[] files = Directory.GetFiles( _screenshotFolder);
 
         // filtering out non image files
         List<string> filteredFiles = new List<string>();
@@ -152,7 +135,7 @@ public class SaveLoadManager : Manager<SaveLoadManager>
 
     public List<Texture2D> GetSavedImages()
 	{
-		string[] filenames = GetScreenShotNames();
+		string[] filenames = GetScreenshotNames();
 
 		if (filenames.Length == 0)
 			return null;
@@ -189,11 +172,12 @@ public class SaveLoadManager : Manager<SaveLoadManager>
         return texture;
     }
 
-    private void DoSaveScene()
+    public void SaveScene(string name)
     {
         DoSaveScene( string.Empty );
     }
 
+    //Save/Load scene functions
     private void DoSaveScene( string saveName )
     {
         SaveEntry save_game = new SaveEntry();
@@ -227,11 +211,39 @@ public class SaveLoadManager : Manager<SaveLoadManager>
         serializer.Serialize( WriteFileStream, save_game );
     }
 
-    public void SaveScene()
+    // Returns all the save name files
+    public string[] GetSaveGameNames()
     {
-        DoSaveScene();      
+        return Directory.GetFiles( Application.persistentDataPath, "Sandplay_Save*" );
     }
 
+    // Deserialize XML into SaveEntry
+    private SaveEntry DeserializeSaveEntry( string filePath )
+    {
+        XmlSerializer serializer = new XmlSerializer( typeof( SaveEntry ) );
+
+        using ( StreamReader reader = new StreamReader( filePath ) )
+        {
+            return ( SaveEntry )serializer.Deserialize( reader );
+        }
+    }
+
+
+    void LoadScene()
+    {
+        /*
+        foreach ( ObjectSaveEntry ose in _save_game._objects )
+        {
+            GameObject go = ( GameObject )Instantiate( _object_spawner.FindPanelPrefabByName( ose._name ) );
+            go.name = ose._name;
+            go.GetComponent<Rigidbody>().isKinematic = true;
+            go.transform.position = ose._position;
+            go.transform.localScale = ose._scale;
+            go.transform.rotation = ose._rotation;
+            go.transform.parent = _object_spawner.transform;
+        }
+         */
+    }
 
     // Must call as per manager class
     protected override void OnDestroy()
