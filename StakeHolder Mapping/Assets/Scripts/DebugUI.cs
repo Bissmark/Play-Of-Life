@@ -65,7 +65,7 @@ public class DebugUI : Manager<DebugUI>
     // Button click functions
     public void OnSaveScreenshotButtonClick()
     {
-        SaveLoadManager.Instance.TakeScreenShot();
+        SaveLoadManager.Instance.SaveScreenshot();
     }
     public void OnLoadScreenshotButton()
     {

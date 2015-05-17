@@ -67,22 +67,17 @@ public class SaveLoadManager : Manager<SaveLoadManager>
     }
 
     // Save/Load screenshot functions
-    public string TakeScreenShot()
+    public string SaveScreenshot()
     {
-        return TakeScreenShot( this._screenshotFolder, this._screenShotFileName );
+        return SaveScreenshot( this._screenshotFolder, this._screenShotFileName );
     }
 
-    public string TakeScreenShot( string folder, string fileName )
-    {
-        return SaveScreenshot( folder, fileName );
-    }
-
-    private string SaveScreenshot( string folder, string fileName )
+    public string SaveScreenshot( string folder, string fileName )
     {
         string currentDT = DateTime.Now.ToString( "yyyy-MM-dd HH.mm.ss" );
         string filePath = folder + fileName + currentDT + ".png";
 
-        CaptureScreenshot(filePath, _saveGUI);
+        CaptureScreenshot( filePath, _saveGUI );
 
         return filePath;
     }
@@ -183,7 +178,7 @@ public class SaveLoadManager : Manager<SaveLoadManager>
         SaveEntry save_game = new SaveEntry();
 
         // save the filepath of the screenshot
-        save_game._screenshot_filename = TakeScreenShot( _screenshotSaveSceneFolder, "screenshot" );
+        save_game._screenshot_filename = SaveScreenshot( _screenshotSaveSceneFolder, "screenshot" );
         Debug.Log( save_game._screenshot_filename );
 
         // saving objects in the scene
